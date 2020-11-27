@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Comparator;
 
 public class MyArrayList<T extends Comparable<T>> {
@@ -168,16 +169,12 @@ public class MyArrayList<T extends Comparable<T>> {
     //
 
     public void reSize(boolean sign) {
-        T[] listCopy;
         if (sign) {
-            listCopy = (T[]) new Comparable[list.length * 2];
+            list = Arrays.copyOf(list,list.length*2);
         } else {
-            listCopy = (T[]) new Comparable[list.length / 2];
+            list = Arrays.copyOf(list,list.length/2);
         }
-        for (int i = 0; i < size; i++) {
-            listCopy[i] = list[i];
-        }
-        list = listCopy;
+        System.out.println(list.length);
     }
 
 
