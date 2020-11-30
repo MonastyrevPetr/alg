@@ -34,11 +34,12 @@ public class MyStack<T> {
     }
 
     public void push(T item) {
-        if (isFull()) {
-            throw new StackOverflowError();
-        }
+
         list[size] = item;
         size++;
+        if (isFull()) {
+            reCapacity(size*2);
+        }
     }
 
     public int size() {
