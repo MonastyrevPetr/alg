@@ -41,5 +41,14 @@ public class Hw4 {
         for (int i = 0; i < 3; i++) {
             System.out.println(mq.dequeue());
         }
+
+        MyStack<String> ms = new MyStack<>();
+        ms.push("qwe");
+        ms.push("asd");
+        ms.push("zxc");
+
+        for (int i = 0; i < 3; i++) {
+            System.out.println(ms.poop());
+        }
     }
 }

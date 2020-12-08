@@ -15,9 +15,69 @@ public class MyLinkedList<T> implements Iterable<T> {
     }
 
 
-//    public ListIterator<T> listIterator() {
-//        return null;
-//    }
+    public ListIterator<T> listIterator() {
+        return new ListIter();
+    }
+
+    private class ListIter implements ListIterator {
+        Node current = new Node(null, first);
+        int index=-1;
+
+        @Override
+        public boolean hasNext() {
+            return current.getNext() != null;
+        }
+
+        @Override
+        public boolean hasPrevious() {
+            return current.getPrev() != null;
+        }
+
+        @Override
+        public T next() {
+            current = current.getNext();
+            index++;
+            return current.getValue();
+        }
+
+        @Override
+        public T previous() {
+            current = current.getPrev();
+            index--;
+            return current.getValue();
+        }
+
+        @Override
+        public int nextIndex() {
+            if(index>=0 && index<size){
+                return index+1;
+            }
+            return -1;
+        }
+
+        @Override
+        public int previousIndex() {
+            if(index>=0 && index<size){
+                return index-1;
+            }
+            return -1;
+        }
+
+        @Override
+        public void remove() {
+
+        }
+
+        @Override
+        public void set(Object o) {
+
+        }
+
+        @Override
+        public void add(Object o) {
+
+        }
+    }
 
     public MyLinkedList() {
         first = null;
