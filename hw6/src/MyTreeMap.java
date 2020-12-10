@@ -11,11 +11,13 @@ public class MyTreeMap<Key extends Comparable<Key>, Value> {
         Node left;
         Node right;
         int size;
+        int height;
 
         public Node(Key key, Value value) {
             this.key = key;
             this.value = value;
             size = 1;
+            height = 0;
         }
     }
 
@@ -23,11 +25,23 @@ public class MyTreeMap<Key extends Comparable<Key>, Value> {
         return size(root);
     }
 
+
     private int size(Node node) {
         if (node == null) {
             return 0;
         }
         return node.size;
+    }
+
+    public int height() {
+        return height(root);
+    }
+
+    private int height(Node node) {
+        if (node == null) {
+            return 0;
+        }
+        return node.height;
     }
 
     public boolean isEmpty() {
@@ -63,6 +77,7 @@ public class MyTreeMap<Key extends Comparable<Key>, Value> {
         }
     }
 
+
     public void put(Key key, Value value) {
         isKeyNotNull(key);
         if (value == null) {
@@ -85,6 +100,7 @@ public class MyTreeMap<Key extends Comparable<Key>, Value> {
             node.right = put(node.right, key, value);
         }
         node.size = size(node.left) + size(node.right) + 1;
+        node.height = Math.max(height(node.left), height(node.right)) + 1;
         return node;
     }
 
@@ -115,6 +131,11 @@ public class MyTreeMap<Key extends Comparable<Key>, Value> {
         }
         node.left = deleteMin(node.left);
         node.size = size(node.left) + size(node.right) + 1;
+        if (node.left==null && node.right==null){
+            node.height=0;
+        }else{
+            node.height = Math.max(height(node.left), height(node.right)) +1;
+        }
         return node;
     }
 
@@ -146,7 +167,34 @@ public class MyTreeMap<Key extends Comparable<Key>, Value> {
         }
 
         node.size = size(node.left) + size(node.right) + 1;
+        if (node.left==null && node.right==null){
+            node.height=0;
+        }else{
+            node.height = Math.max(height(node.left), height(node.right)) +1;
+        }
+
+
         return node;
+    }
+
+    public boolean balance() {
+        return balance(root);
+    }
+
+    private boolean balance(Node node) {
+        if (height(node)==0 ) {
+            return true;
+        }
+//        if (node.left==null){
+//            return node.right.height<=1;
+//        }
+//        if(node.right==null){
+//            return node.left.height<=1;
+//        }
+        if (Math.abs(height(node.left) - height(node.right)) > 1) {
+            return false;
+        }
+        return balance(node.right) && balance(node.left);
     }
 
 
